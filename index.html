@@ -79,25 +79,30 @@ body {
 let current = 0;
 let goal = 777;
 
-const liquid = document.getElementById("liquid");
-const text = document.getElementById("text");
-
-function update(amount) {
-  current += amount;
-  if (current > goal) current = goal;
-
-  let percent = (current / goal) * 100;
-  liquid.style.height = percent + "%";
-  text.innerText = $${current} / ${goal};
-}
-
-/* تشغيل التجربة */
 function start() {
+  const liquid = document.getElementById("liquid");
+  const text = document.getElementById("text");
+
+  if (!liquid || !text) {
+    setTimeout(start, 500); // يرجع يجرب
+    return;
+  }
+
+  // تصفير
+  liquid.style.height = "0%";
+  text.innerText = "$0 / 777";
+
+  // تجربة وهمية
   setInterval(() => {
-    update(10);
-  }, 2000);
+    current += 10;
+
+    if (current > goal) current = goal;
+
+    let percent = (current / goal) * 100;
+    liquid.style.height = percent + "%";
+    text.innerText = $${current} / ${goal};
+  }, 1500);
 }
 
-/* تأكد الصفحة جاهزة */
-window.onload = start;
+start();
 </script>
