@@ -68,24 +68,29 @@ body {
 
 <div class="circle">
   <div class="liquid" id="liquid"></div>
-  <div class="text" id="text">$0 / 777</div>
+  <div class="text" id="text">0 / 777</div>
 </div>
 
 <script>
-window.onload = function() {
-    let current = 0;
-    let goal = 777;
+let current = 0;
+let goal = 777;
 
+function update() {
     const liquid = document.getElementById("liquid");
     const text = document.getElementById("text");
 
-    setInterval(function() {
-        current += 10;
-        if (current > goal) current = goal;
+    if (!liquid || !text) {
+        console.log("ERROR: elements not found");
+        return;
+    }
 
-        let percent = (current / goal) * 100;
-        liquid.style.height = percent + "%";
-        text.innerText = current + " / " + goal;
-    }, 100);
-};
+    current += 10;
+    if (current > goal) current = goal;
+
+    let percent = (current / goal) * 100;
+    liquid.style.height = percent + "%";
+    text.innerText = "$" + current + " / " + goal;
+}
+
+setInterval(update, 100);
 </script>
