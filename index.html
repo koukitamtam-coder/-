@@ -6,53 +6,53 @@
 
 <style>
 body {
-  margin: 0;
-  background: transparent;
-  overflow: hidden;
+    margin: 0;
+    background: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
+/* الحاوية */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 /* الدائرة */
 .circle {
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  position: relative;
-  overflow: hidden;
-  box-shadow: 0 0 30px rgba(138, 43, 226, 0.8);
-  border: 3px solid #a855f7;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 30px rgba(138, 43, 226, 0.8);
+    border: 3px solid #a855f7;
 }
 
-/* التعبئة */
+/* السائل */
 .liquid {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 0%;
-  background: #a855f7;
-  transition: height 0.5s ease;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 0%;
+    background: #a855f7;
+    transition: height 0.5s ease;
 }
 
 /* النص تحت الدائرة */
 .text {
-  display: block;
-  width: 100%;
-  text-align: center;
-  margin-top: 5px;
+    margin-top: 5px; /* ← هون قربناه */
+    font-size: 28px;
+    font-weight: bold;
+    color: black;
 
-  font-size: 28px;
-  font-weight: bold;
-  color: black;
-
-  text-shadow:
-    0 0 5px #a855f7,
-    0 0 10px #a855f7,
-    0 0 20px #a855f7;
+    text-shadow:
+        0 0 5px #a855f7,
+        0 0 10px #a855f7,
+        0 0 20px #a855f7;
 }
 </style>
 
@@ -60,33 +60,30 @@ body {
 
 <body>
 
-<div class="circle">
-  <div class="liquid" id="liquid"></div>
-</div>
+<div class="container">
+    <div class="circle">
+        <div class="liquid" id="liquid"></div>
+    </div>
 
-<div class="text" id="text">$0 / 777</div>
+    <div class="text" id="text">$0 / 777</div>
+</div>
 
 <script>
 window.onload = function() {
+    let current = 0;
+    let goal = 777;
 
-  let current = 0;
-  let goal = 777;
+    const liquid = document.getElementById("liquid");
+    const text = document.getElementById("text");
 
-  const liquid = document.getElementById("liquid");
-  const text = document.getElementById("text");
+    setInterval(function() {
+        current += 10;
+        if (current > goal) current = goal;
 
-  setInterval(function() {
-
-    current += 10;
-    if (current > goal) current = goal;
-
-    let percent = (current / goal) * 100;
-    liquid.style.height = percent + "%";
-
-    text.innerText = "$" + current + " / " + goal;
-
-  }, 100);
-
+        let percent = (current / goal) * 100;
+        liquid.style.height = percent + "%";
+        text.innerText = "$" + current + " / " + goal;
+    }, 100);
 };
 </script>
 
