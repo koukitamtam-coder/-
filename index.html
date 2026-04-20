@@ -9,6 +9,12 @@ body {
   margin: 0;
   background: transparent;
   overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
 }
 
 /* الدائرة */
@@ -22,7 +28,7 @@ body {
   border: 3px solid #a855f7;
 }
 
-/* المي */
+/* التعبئة */
 .liquid {
   position: absolute;
   bottom: 0;
@@ -32,67 +38,53 @@ body {
   transition: height 0.5s ease;
 }
 
-/* التمويج */
-.liquid:before {
-  content: "";
-  position: absolute;
-  width: 200%;
-  height: 200%;
-  top: -150%;
-  left: -50%;
-  background: rgba(255,255,255,0.2);
-  border-radius: 40%;
-  animation: wave 5s linear infinite;
-}
-
-@keyframes wave {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-/* النص */
+/* النص تحت الدائرة */
 .text {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  text-shadow: 0 0 5px black;
-}
+  margin-top: 20px;
+  font-size: 28px;
   font-weight: bold;
+  color: black;
+
+  text-shadow:
+    0 0 5px #a855f7,
+    0 0 10px #a855f7,
+    0 0 20px #a855f7;
 }
 </style>
+
 </head>
 
 <body>
 
 <div class="circle">
   <div class="liquid" id="liquid"></div>
-  <div class="text" id="text">0 / 777</div>
 </div>
 
+<div class="text" id="text">$0 / 777</div>
+
 <script>
-let current = 0;
-let goal = 777;
+window.onload = function() {
 
-function update() {
-    const liquid = document.getElementById("liquid");
-    const text = document.getElementById("text");
+  let current = 0;
+  let goal = 777;
 
-    if (!liquid || !text) {
-        console.log("ERROR: elements not found");
-        return;
-    }
+  const liquid = document.getElementById("liquid");
+  const text = document.getElementById("text");
+
+  setInterval(function() {
 
     current += 10;
     if (current > goal) current = goal;
 
     let percent = (current / goal) * 100;
     liquid.style.height = percent + "%";
-    text.innerText = "$" + current + " / " + goal;
-}
 
-setInterval(update, 100);
+    text.innerText = "$" + current + " / " + goal;
+
+  }, 100);
+
+};
 </script>
+
+</body>
+</html>
