@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+body {
+  margin: 0;
+  background: transparent;
+}
+
+.container {
+  width: 300px;
+  height: 300px;
+  border: 4px solid #a855f7;
+  border-radius: 50%;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 0 30px #a855f7, 0 0 60px #a855f7;
+}
+
+.liquid {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 50%;
+  overflow: hidden;
+}
+
+.liquid svg {
+  position: absolute;
+  width: 200%;
+  height: 100%;
+  bottom: 0;
+  fill: #a855f7;
+  animation: waveMove 2.5s linear infinite;
+  filter: drop-shadow(0 0 10px #a855f7);
+}
+
+@keyframes waveMove {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.text {
+  position: absolute;
+  width: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  text-align: center;
+  color: white;
+  font-size: 26px;
+  font-weight: bold;
+  text-shadow: 0 0 10px #a855f7;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <div class="liquid" id="liquid">
+    <svg viewBox="0 0 500 150">
+      <path d="M0,60 C120,20 380,120 500,60 L500,150 L0,150 Z"></path>
+    </svg>
+  </div>
+
+  <div class="text" id="goalText">$0 / 777</div>
+</div>
+
+<script>
+let current = 0;
+let goal = 777;
+
+function init() {
+  const liquid = document.getElementById("liquid");
+  const text = document.getElementById("goalText");
+
+  if (!liquid || !text) {
+    setTimeout(init, 500);
+    return;
+  }
+
+  current = 0;
+  liquid.style.height = "0%";
+  text.innerText = "$0 / 777";
+
+  // تجربة وهمية (احذفيها بعدين)
+  setInterval(() => {
+    current += 50;
+    if (current > goal) current = goal;
+
+    let percent = (current / goal) * 100;
+    liquid.style.height = percent + "%";
+    text.innerText = $${current} / ${goal};
+  }, 2000);
+}
+
+init();
+</script>
+
+</body>
+</html>
