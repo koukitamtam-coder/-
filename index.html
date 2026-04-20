@@ -32,8 +32,8 @@ body {
   transition: height 0.5s ease;
 }
 
-/* الموجة */
-.liquid::before {
+/* التمويج */
+.liquid:before {
   content: "";
   position: absolute;
   width: 200%;
@@ -42,10 +42,9 @@ body {
   left: -50%;
   background: rgba(255,255,255,0.2);
   border-radius: 40%;
-  animation: wave 4s linear infinite;
+  animation: wave 5s linear infinite;
 }
 
-/* حركة الموج */
 @keyframes wave {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
@@ -61,11 +60,8 @@ body {
   justify-content: center;
   color: white;
   font-weight: bold;
-  font-size: 20px;
-  text-shadow: 0 0 10px rgba(0,0,0,0.5);
 }
 </style>
-
 </head>
 
 <body>
@@ -76,33 +72,23 @@ body {
 </div>
 
 <script>
-let current = 0;
-let goal = 777;
+window.onload = function() {
+  let current = 0;
+  let goal = 777;
 
-function start() {
   const liquid = document.getElementById("liquid");
   const text = document.getElementById("text");
 
-  if (!liquid || !text) {
-    setTimeout(start, 500); // يرجع يجرب
-    return;
-  }
-
-  // تصفير
-  liquid.style.height = "0%";
-  text.innerText = "$0 / 777";
-
-  // تجربة وهمية
   setInterval(() => {
     current += 10;
-
     if (current > goal) current = goal;
 
     let percent = (current / goal) * 100;
     liquid.style.height = percent + "%";
     text.innerText = $${current} / ${goal};
   }, 1500);
-}
-
-start();
+};
 </script>
+
+</body>
+</html>
